@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.namasake.food.data.entity.Food
 import com.namasake.food.databinding.FoodItemBinding
 
 class FoodAdapter: ListAdapter<Food, FoodAdapter.FoodViewHolder>(FoodComparator()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodAdapter.FoodViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val binding = FoodItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return FoodViewHolder(binding)
     }
@@ -26,7 +27,8 @@ class FoodAdapter: ListAdapter<Food, FoodAdapter.FoodViewHolder>(FoodComparator(
         fun bind(food: Food){
             binding.apply {
                 tvName.text = food.name
-                tvColor.text = food.color
+                tvDescription.text = food.description
+                Glide.with(itemView).load(food.imageUrl).into(imageLogo)
             }
         }
 
