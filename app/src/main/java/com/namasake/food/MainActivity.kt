@@ -1,16 +1,15 @@
 package com.namasake.food
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.namasake.food.data.entity.Food
 import com.namasake.food.data.network.RepoImpl
 import com.namasake.food.databinding.ActivityMainBinding
 import com.namasake.food.domain.UseCase
@@ -22,7 +21,7 @@ import kotlinx.coroutines.flow.collect
 
 const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),FoodAdapter.OnFoodClickListener {
     private val viewModel by lazy { ViewModelProvider(this,MainViewModelFactory(UseCase(RepoImpl()))).get(MainViewModel::class.java)}
     private  lateinit var binding: ActivityMainBinding
 
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun observeData() {
-        val foodAdapter = FoodAdapter()
+        val foodAdapter = FoodAdapter(this)
         viewModel.foodItems.collect { event ->
             when(event){
                 is MainViewModel.FoodEvent.Success -> {
@@ -49,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                             layoutManager = LinearLayoutManager(this@MainActivity)
                         }
                         foodAdapter.submitList(event.result)
+                        event.result?.let { foodAdapter.setFoodList(it) }
                     }
                 }
                 is MainViewModel.FoodEvent.Loading ->{
@@ -57,10 +57,17 @@ class MainActivity : AppCompatActivity() {
                 is MainViewModel.FoodEvent.Failure -> {
                     binding.progressBar.isVisible = false
                     Toast.makeText(this, "Something wrong: "+event.errorText, Toast.LENGTH_SHORT).show()
+                    Log.e(TAG,event.errorText)
                 }
                 is MainViewModel.FoodEvent.Empty -> Unit
             }
 
         }
+    }
+
+    override fun onFoodClick(food: Food, position: Int) {
+        val intent = Intent(this,DetailsActivity::class.java)
+        intent.putExtra("food",food)
+        startActivity(intent)
     }
 }
