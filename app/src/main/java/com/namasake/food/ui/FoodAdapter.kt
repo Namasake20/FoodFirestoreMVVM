@@ -1,7 +1,9 @@
-package com.namasake.food.presentation
+package com.namasake.food.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DiffUtil.DiffResult.NO_POSITION
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.namasake.food.data.entity.Food
 import com.namasake.food.databinding.FoodItemBinding
 
-class FoodAdapter(private val itemClickListener: OnFoodClickListener): ListAdapter<Food, FoodAdapter.FoodViewHolder>(FoodComparator()) {
+class FoodAdapter(private val itemClickListener: OnFoodClickListener): ListAdapter<Food, FoodAdapter.FoodViewHolder>(FoodComparator()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val binding = FoodItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         val holder = FoodViewHolder(binding)
@@ -29,7 +31,7 @@ class FoodAdapter(private val itemClickListener: OnFoodClickListener): ListAdapt
     }
 
     fun setFoodList(foodList: List<Food>){
-        this.foodList= foodList
+        this.foodList = foodList
         notifyDataSetChanged()
     }
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
