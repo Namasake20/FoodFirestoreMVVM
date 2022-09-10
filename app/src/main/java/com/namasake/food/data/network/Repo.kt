@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repo {
     suspend fun getFood(): Flow<Resource<List<Food>>>
+
+    suspend fun deleteFood(foodId:String)
 }

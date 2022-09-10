@@ -40,5 +40,10 @@ class MainViewModel(private val useCase: UseCase): ViewModel() {
             }
         }
     }
+    fun deleteFood(id:String){
+        viewModelScope.launch {
+            useCase.deleteFood(foodId = id)
+        }
+    }
 
 }

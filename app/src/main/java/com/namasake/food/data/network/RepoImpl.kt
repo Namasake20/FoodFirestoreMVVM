@@ -7,12 +7,11 @@ import com.namasake.food.data.entity.Food
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import java.io.IOException
 
 class RepoImpl:Repo {
+    private val firestore = FirebaseFirestore.getInstance()
+    private val foodCollection = firestore.collection(FOOD_COLLECTION)
     override suspend fun getFood():Flow<Resource<List<Food>>> = flow {
-        val firestore = FirebaseFirestore.getInstance()
-        val foodCollection = firestore.collection(FOOD_COLLECTION)
 
         emit(Resource.Loading())
 
@@ -23,5 +22,16 @@ class RepoImpl:Repo {
 //            emit(Resource.Failure(exception = e))
         }
 
+    }
+
+    override suspend fun deleteFood(foodId: String) {
+        val query = foodCollection.whereEqualTo("id",foodId).get()
+        query.addOnSuccessListener {
+            for (document in it){
+                foodCollection.document(document.id).delete().addOnSuccessListener {
+                    println("deleted")
+                }
+            }
+        }
     }
 }

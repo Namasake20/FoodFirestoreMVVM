@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.namasake.food.data.entity.Food
 import com.namasake.food.data.network.RepoImpl
@@ -18,6 +21,7 @@ import com.namasake.food.presentation.MainViewModel
 import com.namasake.food.presentation.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,12 +35,26 @@ class MainActivity : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        lifecycleScope.launchWhenStarted {
-            viewModel.getFoods()
-            observeData()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.getFoods()
+                observeData()
+            }
         }
 
+        binding.swipeRefresh.setOnRefreshListener {
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED){
+                    viewModel.getFoods()
+                    observeData()
+                }
+            }
+            Toast.makeText(this, "Refreshed", Toast.LENGTH_SHORT).show()
+            swipeRefresh.isRefreshing = false
+        }
     }
+
 
     private suspend fun observeData() {
         val foodAdapter = FoodAdapter(this)
@@ -55,7 +73,8 @@ class MainActivity : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
 
                     val tempList: ArrayList<Food> = (event.result as ArrayList<Food>?)!!
 
-                    binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    binding.searchView.setOnQueryTextListener(object :
+                        SearchView.OnQueryTextListener {
                         override fun onQueryTextSubmit(query: String?): Boolean {
                             binding.searchView.clearFocus()
                             return false
@@ -66,18 +85,15 @@ class MainActivity : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
                             val searchText = newText!!.toLowerCase(Locale.getDefault())
 
                             if (searchText.isNotEmpty()) {
-//                                for (item in tempList) {
-//                                    if (item.name!!.toLowerCase(Locale.getDefault()).contains(searchText)) {
-//                                        filteredList.add(item)
-//                                        foodAdapter.notifyDataSetChanged()
-//
-//                                    }
-//                                }
                                 tempList.forEach {
-                                    if (it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                                    if (it.name!!.toLowerCase(Locale.getDefault())
+                                            .contains(searchText)
+                                    ) {
                                         filteredList.add(it)
                                         foodAdapter.notifyDataSetChanged()
 
+                                    } else {
+//                                        Toast.makeText(this@MainActivity, "No data found", Toast.LENGTH_SHORT).show()
                                     }
                                 }
 
