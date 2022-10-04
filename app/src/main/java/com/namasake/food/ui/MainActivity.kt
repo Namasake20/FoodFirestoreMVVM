@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -52,6 +51,12 @@ class MainActivity : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
             }
             Toast.makeText(this, "Refreshed", Toast.LENGTH_SHORT).show()
             swipeRefresh.isRefreshing = false
+        }
+
+        binding.fab.setOnClickListener {
+            Intent(this, AddFood::class.java).also {
+                startActivity(it)
+            }
         }
     }
 

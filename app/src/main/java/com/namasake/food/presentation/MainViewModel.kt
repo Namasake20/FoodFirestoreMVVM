@@ -1,9 +1,11 @@
 package com.namasake.food.presentation
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.namasake.food.core.Resource
 import com.namasake.food.data.entity.Food
+import com.namasake.food.data.network.Repo
 import com.namasake.food.domain.UseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,5 +47,12 @@ class MainViewModel(private val useCase: UseCase): ViewModel() {
             useCase.deleteFood(foodId = id)
         }
     }
+
+    fun addNewFood(name: String, description: String,id: String,imageUrl:String){
+        viewModelScope.launch {
+            useCase.addFood(name, description,id,imageUrl)
+        }
+    }
+
 
 }

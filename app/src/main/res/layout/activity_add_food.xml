@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_normal"
+    android:layout_marginVertical="@dimen/margin_small"
+    android:padding="@dimen/margin_normal"
+    app:cardCornerRadius="@dimen/common_radius"
+    app:cardElevation="@dimen/common_elevation"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.AddFood">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Food"
+            android:layout_marginTop="5dp"
+            android:id="@+id/txtTitle"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="69dp"
+            android:ems="10"
+            android:padding="@dimen/margin_normal"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@id/txtTitle"
+            app:layout_constraintStart_toStartOf="@id/txtTitle"
+            app:layout_constraintTop_toBottomOf="@id/txtTitle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="name"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtdescript"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_margin="@dimen/margin_normal"
+            android:ems="10"
+            android:hint="description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/edtName"
+            app:layout_constraintStart_toStartOf="@+id/edtName"
+            app:layout_constraintTop_toBottomOf="@+id/edtName">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Food"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_normal"
+            app:cornerRadius="50dp"
+            android:padding="@dimen/margin_normal"
+            app:layout_constraintEnd_toEndOf="@+id/btnChooseImage"
+            app:layout_constraintStart_toStartOf="@+id/btnChooseImage"
+            app:layout_constraintTop_toBottomOf="@+id/btnChooseImage" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChooseImage"
+            android:layout_width="wrap_content"
+            app:cornerRadius="@dimen/common_radius"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_normal"
+            android:text="Select Image"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="@+id/edtdescript"
+            app:layout_constraintStart_toStartOf="@+id/edtdescript"
+            app:layout_constraintTop_toBottomOf="@+id/edtdescript" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

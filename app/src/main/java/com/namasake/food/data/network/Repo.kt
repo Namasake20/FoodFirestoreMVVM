@@ -8,4 +8,7 @@ interface Repo {
     suspend fun getFood(): Flow<Resource<List<Food>>>
 
     suspend fun deleteFood(foodId:String)
+
+    suspend fun addFood(name:String,description:String,id:String,imageUrl:String)
+
 }
