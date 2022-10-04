@@ -13,12 +13,12 @@ This is a clean architecture app example built with
 
 # Architecture
 
-![img1](https://miro.medium.com/max/1400/1*h1Qxz2tOjXFJeXztW1CWfA.png)
+![img1](https://miro.medium.com/max/811/1*5b-8CCT6MvQrWrep4aQUIw.png)
 
 # Screenshots
 | Home Page | Detail Page |
 |:-:|:-:|
 | ![1](screenshots/food1.png?raw=true) | ![3](screenshots/food2.png?raw=true) |
-| Home page | Detail page |
+| Home page(Dark mode) | Detail page |
 | ![4](screenshots/food3.png?raw=true) | ![5](screenshots/food4.png?raw=true) |
 
