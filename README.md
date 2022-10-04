@@ -6,7 +6,6 @@ This is a clean architecture app example built with
 - Dagger Hilt
 - Retrofit
 - FirebaseFirestore
-- Navigation Components
 - Coroutines Flow
 - ViewBinding
 
