@@ -1,10 +1,9 @@
-# FoodFirestoreMVVM
-This is a clean architecture app example built with
+# FoodApp
+This is a clean architecture app  built with
 
 - Coroutines
 - MVVM architecture
-- Dagger Hilt
-- Retrofit
+- LiveData
 - FirebaseFirestore
 - Coroutines Flow
 - ViewBinding
