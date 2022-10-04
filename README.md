@@ -17,7 +17,7 @@ This is a clean architecture app example built with
 ![img1](https://miro.medium.com/max/1400/1*h1Qxz2tOjXFJeXztW1CWfA.png)
 
 # Screenshots
-# Screenshots| Home Page | Detail Page |
+| Home Page | Detail Page |
 |:-:|:-:|
 | ![1](screenshots/food1.png?raw=true) | ![3](screenshots/food2.png?raw=true) |
 | Home page | Detail page |
